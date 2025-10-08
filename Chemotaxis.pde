@@ -152,7 +152,8 @@ void evolveGeneration() {
     enableCannibalismForAll();
 
     for (int i = 0; i < numBacteria; i++) nextGeneration[i] = new Bacteria();
-    bacteriaArray = nextGeneration.clone();
+    bacteriaArray = new Bacteria[nextGeneration.length];
+    arrayCopy(nextGeneration, bacteriaArray);
     nextGeneration = new Bacteria[numBacteria];
 
     for (int i = 0; i < bacteriaArray.length; i++) {
@@ -168,7 +169,8 @@ void evolveGeneration() {
   sortBacteriaByFitness();
   createNextGeneration();
 
-  bacteriaArray = nextGeneration.clone();
+  bacteriaArray = new Bacteria[nextGeneration.length];
+  arrayCopy(nextGeneration, bacteriaArray);
   nextGeneration = new Bacteria[numBacteria];
 
   generation++;
@@ -439,11 +441,15 @@ class Bacteria {
     targetCheckpoint = 0;
 
     if (random(1) < 0.5) {
-      baseSpeed = parent1.baseSpeed;           baseAccuracy = parent2.baseAccuracy;
-      basePersistence = parent1.basePersistence; baseDetectionRadius = parent2.baseDetectionRadius;
+      baseSpeed = parent1.baseSpeed;           
+      baseAccuracy = parent2.baseAccuracy;
+      basePersistence = parent1.basePersistence; 
+      baseDetectionRadius = parent2.baseDetectionRadius;
     } else {
-      baseSpeed = parent2.baseSpeed;           baseAccuracy = parent1.baseAccuracy;
-      basePersistence = parent2.basePersistence; baseDetectionRadius = parent1.baseDetectionRadius;
+      baseSpeed = parent2.baseSpeed;           
+      baseAccuracy = parent1.baseAccuracy;
+      basePersistence = parent2.basePersistence; 
+      baseDetectionRadius = parent1.baseDetectionRadius;
     }
 
     baseSpeed += random(-0.2, 0.2);
@@ -457,15 +463,23 @@ class Bacteria {
     baseDetectionRadius = constrain(baseDetectionRadius, 20, 100);
 
     if (random(1) < 0.5) {
-      speedLevel = parent1.speedLevel;            accuracyLevel = parent2.accuracyLevel;
-      persistenceLevel = parent1.persistenceLevel; detectionLevel = parent2.detectionLevel;
-      efficiencyLevel = parent1.efficiencyLevel;  panicResistanceLevel = parent2.panicResistanceLevel;
-      aggressionLevel = parent1.aggressionLevel;  cannibalisticLevel = parent2.cannibalisticLevel;
+      speedLevel = parent1.speedLevel;            
+      accuracyLevel = parent2.accuracyLevel;
+      persistenceLevel = parent1.persistenceLevel; 
+      detectionLevel = parent2.detectionLevel;
+      efficiencyLevel = parent1.efficiencyLevel;  
+      panicResistanceLevel = parent2.panicResistanceLevel;
+      aggressionLevel = parent1.aggressionLevel;  
+      cannibalisticLevel = parent2.cannibalisticLevel;
     } else {
-      speedLevel = parent2.speedLevel;            accuracyLevel = parent1.accuracyLevel;
-      persistenceLevel = parent2.persistenceLevel; detectionLevel = parent1.detectionLevel;
-      efficiencyLevel = parent2.efficiencyLevel;  panicResistanceLevel = parent1.panicResistanceLevel;
-      aggressionLevel = parent2.aggressionLevel;  cannibalisticLevel = parent1.cannibalisticLevel;
+      speedLevel = parent2.speedLevel;            
+      accuracyLevel = parent1.accuracyLevel;
+      persistenceLevel = parent2.persistenceLevel; 
+      detectionLevel = parent1.detectionLevel;
+      efficiencyLevel = parent2.efficiencyLevel;  
+      panicResistanceLevel = parent1.panicResistanceLevel;
+      aggressionLevel = parent2.aggressionLevel;  
+      cannibalisticLevel = parent1.cannibalisticLevel;
     }
 
     maybeMutateLevels();
